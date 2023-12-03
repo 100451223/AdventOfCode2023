@@ -98,6 +98,5 @@ class Puzzle001:
         
 
 puzzle001 = Puzzle001()
-# puzzle001.part1()
-# puzzle001._get_calibration_value_numerals_v2("a7shtwo8twok")
+puzzle001.part1()
 puzzle001.part2()
