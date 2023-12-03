@@ -16,7 +16,7 @@ class Puzzle001:
         return records
 
     def _get_calibration_value(self, record: list):
-        # Given an array of char characters, return the first and last numbers in it concatenated
+        # Given an array of char characters, return the first and last numbers in it concatenated as an integer
 
         if len(record) == 0: 
             return -1
@@ -32,48 +32,35 @@ class Puzzle001:
             # Found the first and last numbers
             if (first and last):
                 return int(first+last)
+            
+        return -1
     
     def _get_calibration_value_numerals(self, input: str):
-        
-        numbers_ordinals = {
-            "0": "0",
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-            "zero": "0",
-            "one": "1",
-            "two": "2",
-            "three": "3",
-            "four": "4",
-            "five": "5",
-            "six": "6",
-            "seven": "7",
-            "eight": "8",
-            "nine": "9"
+        # Given an array of char characters, return the first and last numbers in it concatenated as an integer
+        # There may be ordinal numbers
+        # Time complexity is O(K*N), where K is the lentgh of the largest ordinal
+
+        numbers = {
+            "0": "0", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": "9",
+            "zero": "0", "one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9"
         }
+        ordinals_set = set(list(numbers.keys()))
 
-        first, first_index = None, 99999 
-        last, last_index = None, 0
-        for num in numbers_ordinals.keys():
-            indexes = [i.start() for i in re.finditer(num, input)]
-            if len(indexes) > 0:
-                if min(indexes) <= first_index:
-                    first = numbers_ordinals[num]
-                    first_index = min(indexes)
-                if max(indexes) >= last_index:
-                    last = numbers_ordinals[num]
-                    last_index = max(indexes)
+        first, last = None, None
 
-        if first and last:
-            return int(first+last)
+        max_len = max([len(i) for i in numbers.keys()])
+        min_len = min([len(i) for i in numbers.keys()])
+
+        for i in range(len(input)):
+            for j in range(min_len, min(max_len,len(input)-i)+1):
+                if input[i:i+j] in ordinals_set:
+                    if not first:
+                        first = input[i:i+j]
+                    last = input[i:i+j]
         
-        print("Invalid sequence")
+        if first and last:
+            return int(numbers[first]+numbers[last])
+        
         return -1
     
     def _get_calibration_num_sum(self, numerals: bool):
@@ -105,10 +92,12 @@ class Puzzle001:
         calibration_sum = self._get_calibration_num_sum(numerals=True)
         print(f"Part 2 result: {calibration_sum}")
         return calibration_sum
+    
 
         
         
 
 puzzle001 = Puzzle001()
-puzzle001.part1()
+# puzzle001.part1()
+# puzzle001._get_calibration_value_numerals_v2("a7shtwo8twok")
 puzzle001.part2()
