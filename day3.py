@@ -109,9 +109,7 @@ class Puzzle003:
                 result += gear_systems[gear][0]*gear_systems[gear][1]
         
         print(f"Part 2 result: {result}")
-        return result
-
-                                            
+        return result                    
                     
 puzzle003 = Puzzle003()
 puzzle003.part1()

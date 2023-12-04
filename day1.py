@@ -44,7 +44,6 @@ class Puzzle001:
             "0": "0", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": "9",
             "zero": "0", "one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9"
         }
-        ordinals_set = set(list(numbers.keys()))
 
         first, last = None, None
 
@@ -53,7 +52,7 @@ class Puzzle001:
 
         for i in range(len(input)):
             for j in range(min_len, min(max_len,len(input)-i)+1):
-                if input[i:i+j] in ordinals_set:
+                if input[i:i+j] in numbers:
                     if not first:
                         first = input[i:i+j]
                     last = input[i:i+j]
